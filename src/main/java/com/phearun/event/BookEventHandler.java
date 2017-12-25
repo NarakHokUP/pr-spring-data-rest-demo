@@ -1,5 +1,6 @@
 package com.phearun.event;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
 import org.springframework.data.rest.core.annotation.HandleAfterLinkDelete;
@@ -14,15 +15,25 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
 import com.phearun.model.Book;
+import com.phearun.repository.AuthorRepository;
+import com.phearun.repository.LibraryRepository;
 
 @Component
 @RepositoryEventHandler
 public class BookEventHandler {
 
-	// TODO: save event handler
+	@Autowired
+	AuthorRepository authorRepository;
+	
+	@Autowired
+	LibraryRepository libraryRepository;
+	
+	// TODO: save event handler (update method)
 	@HandleBeforeSave
 	public void handleBeforeSave(Book book) {
 		System.out.println("BeforeSave: " + book);
+		System.out.println(book.getAuthor().getId());
+		System.out.println(book.getLibrary().getId());
 	}
 
 	@HandleAfterSave
@@ -30,9 +41,12 @@ public class BookEventHandler {
 		System.out.println("AfterSave: " + book);
 	}
 	
-	// TODO: create event handler
+	// TODO: create event handler (insert method)
 	@HandleBeforeCreate
 	public void handleBeforeCreate(Book book) {
+		System.out.println("BeforeCreate: " + book);
+		//book.setAuthor(authorRepository.findOne(book.getAuthor().getId()));
+		//book.setLibrary(libraryRepository.findOne(book.getLibrary().getId()));
 		System.out.println("BeforeCreate: " + book);
 	}
 

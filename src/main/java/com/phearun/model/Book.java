@@ -28,5 +28,8 @@ public class Book {
     public Book(String title) {
         this.title = title;
     }
-    
+
+	public Book(Integer id) {
+		this.id = id;
+	}
 }

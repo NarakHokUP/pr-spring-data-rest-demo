@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,14 +27,17 @@ public class Author {
 
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "author", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Book> books;
 
 	public Author(String name) {
-		super();
 		this.name = name;
 	}
-
+	public Author(Integer id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", name=" + name + "]";

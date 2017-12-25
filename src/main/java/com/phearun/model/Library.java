@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class Library {
     @Embedded
     private Address address;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
