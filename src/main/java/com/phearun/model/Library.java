@@ -19,12 +19,17 @@ public class Library {
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "library", orphanRemoval = true)
+    @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
     public Library(String name) {
         this.name = name;
     }
+
+	@Override
+	public String toString() {
+		return "Library [id=" + id + ", name=" + name + "]";
+	}
 
     /*public void setBooks(List<Book> books){
         this.books = books;
@@ -43,11 +48,5 @@ public class Library {
         book.setLibrary(null);
     }*/
 
-    @Override
-    public String toString() {
-        return "Library{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    
 }
