@@ -17,11 +17,11 @@ public class Book {
     private Integer id;
     private String title;
 
-    @ManyToOne
+    @ManyToOne/*(cascade = CascadeType.ALL)*/
     @JoinColumn(name = "library_id")
     private Library library;
 
-    @ManyToOne
+    @ManyToOne/*(cascade = CascadeType.ALL)*/
     @JoinColumn(name = "author_id")
     private Author author;
     

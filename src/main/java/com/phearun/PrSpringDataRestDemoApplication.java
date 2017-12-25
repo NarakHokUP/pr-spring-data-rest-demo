@@ -10,6 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.phearun.model.Address;
 import com.phearun.model.Author;
 import com.phearun.model.Book;
 import com.phearun.model.Library;
@@ -41,6 +42,7 @@ public class PrSpringDataRestDemoApplication implements ApplicationRunner{
 		Arrays.asList("National Library", "Hunsen Library")
 				.forEach(libraryName ->{
 					Library library = new Library(libraryName);
+					library.setAddress(new Address("Monivong Blvd."));
 					libraryRepository.save(library);
 				});
 		

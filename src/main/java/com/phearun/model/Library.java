@@ -18,7 +18,10 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-
+    
+    @Embedded
+    private Address address;
+    
     @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
@@ -28,25 +31,7 @@ public class Library {
 
 	@Override
 	public String toString() {
-		return "Library [id=" + id + ", name=" + name + "]";
+		return "Library [id=" + id + ", name=" + name + ", address=" + address + "]";
 	}
-
-    /*public void setBooks(List<Book> books){
-        this.books = books;
-    }
-    public List<Book> getBooks(){
-        return books;
-    }
-
-    public void addBook(Book book){
-        this.books.add(book);
-        book.setLibrary(this);
-    }
-
-    public void removeBook(Book book){
-        this.books.remove(book);
-        book.setLibrary(null);
-    }*/
-
     
 }
