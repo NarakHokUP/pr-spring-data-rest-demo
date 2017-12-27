@@ -26,11 +26,15 @@ public class Library {
     private Address address;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "libraries")
     private List<Book> books = new ArrayList<>();
 
     public Library(String name) {
         this.name = name;
+    }
+
+    public Library(Integer id){
+        this.id = id;
     }
 
 	@Override

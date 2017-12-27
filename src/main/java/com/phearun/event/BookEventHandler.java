@@ -1,5 +1,6 @@
 package com.phearun.event;
 
+import com.phearun.model.Library;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -18,22 +19,25 @@ import com.phearun.model.Book;
 import com.phearun.repository.AuthorRepository;
 import com.phearun.repository.LibraryRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
-@RepositoryEventHandler
+@RepositoryEventHandler(Book.class)
 public class BookEventHandler {
 
-	@Autowired
 	AuthorRepository authorRepository;
-	
-	@Autowired
 	LibraryRepository libraryRepository;
-	
+
+	public BookEventHandler(AuthorRepository authorRepository, LibraryRepository libraryRepository) {
+		this.authorRepository = authorRepository;
+		this.libraryRepository = libraryRepository;
+	}
+
 	// TODO: save event handler (update method)
 	@HandleBeforeSave
 	public void handleBeforeSave(Book book) {
 		System.out.println("BeforeSave: " + book);
-		System.out.println(book.getAuthor().getId());
-		System.out.println(book.getLibrary().getId());
 	}
 
 	@HandleAfterSave
@@ -45,9 +49,16 @@ public class BookEventHandler {
 	@HandleBeforeCreate
 	public void handleBeforeCreate(Book book) {
 		System.out.println("BeforeCreate: " + book);
-		//book.setAuthor(authorRepository.findOne(book.getAuthor().getId()));
-		//book.setLibrary(libraryRepository.findOne(book.getLibrary().getId()));
-		System.out.println("BeforeCreate: " + book);
+		/*
+		//enable this line when using cascade (exception: detached entity passed to persist)
+		book.setAuthor(authorRepository.findOne(book.getAuthor().getId()));
+
+		List<Library> libraries = new ArrayList<>();
+		book.getLibraries().forEach(lib->{
+			libraries.add(libraryRepository.findOne(lib.getId()));
+		});
+		book.setLibraries(libraries);
+		*/
 	}
 
 	@HandleAfterCreate

@@ -15,27 +15,25 @@ import com.phearun.repository.AuthorRepository;
 import com.phearun.repository.BookRepository;
 import com.phearun.repository.LibraryRepository;
 
+import java.util.Arrays;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PrSpringDataRestDemoApplicationTests {
 
 	@Autowired
 	BookRepository bookRepository;
-	
+
+	@Transactional
 	@Test
 	public void saveBookWithoutCascade() {
-		Author auth = new Author();
-		auth.setId(1);
-		
-		Library lib = new Library();
-		lib.setId(1);
-		
 		Book book = new Book();
-		book.setTitle("test");
-		book.setLibrary(lib);
-		book.setAuthor(auth);
-		
+		book.setTitle("Mastering Spring MVC");
+		book.setLibraries(Arrays.asList(new Library(1), new Library(2)));
+		book.setAuthor(new Author(1));
 		bookRepository.save(book);
+
+		System.out.println(book);
 	}
 	
 	@Autowired
@@ -47,7 +45,7 @@ public class PrSpringDataRestDemoApplicationTests {
 	@Transactional
 	@Test
 	public void saveBookWithCascade() {
-		Author auth = authorRepository.findOne(1);
+		/*Author auth = authorRepository.findOne(1);
 		Library lib = libraryRepository.findOne(1);
 		
 		Book book = new Book();
@@ -57,7 +55,7 @@ public class PrSpringDataRestDemoApplicationTests {
 		
 		bookRepository.save(book);
 		
-		System.out.println(book);
+		System.out.println(book);*/
 	}
 
 }
